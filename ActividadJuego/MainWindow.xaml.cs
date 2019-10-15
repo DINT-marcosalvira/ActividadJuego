@@ -45,14 +45,7 @@ namespace ActividadJuego
 
         public void InicioNivel(int numeroFilas)
         {
-            for (int i = 0; i < numeroFilas; i++)
-            {
-                GridTabla.RowDefinitions.RemoveAt(i);
-            }
-            for (int y = 0; y < 4; y++)
-            {
-                GridTabla.ColumnDefinitions.RemoveAt(y);
-            }
+            GridTabla.RowDefinitions.Clear();
 
             for (int i = 0; i < numeroFilas; i++)
             {
