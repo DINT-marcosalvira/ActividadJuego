@@ -67,7 +67,7 @@ namespace ActividadJuego
                     borde.CornerRadius = new CornerRadius(10);
                     tb.FontFamily = new FontFamily("Webdings");
                     tb.Text = "s";
-                    borde.Background = Brushes.Beige;
+                    borde.Background = LinearGradientBrush(); Brushes.Beige;
                     GridTabla.Children.Add(borde);
                     Grid.SetRow(borde, fila);
                     Grid.SetColumn(borde, z);
