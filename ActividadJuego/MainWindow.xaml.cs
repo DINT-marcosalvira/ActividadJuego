@@ -72,7 +72,7 @@ namespace ActividadJuego
                     listaLetras.Add(l);
                 }
 
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     listaLetras.Add(listaLetras[i]);
                 }
@@ -87,7 +87,7 @@ namespace ActividadJuego
                     listaLetras.Add(l);
                 }
 
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     listaLetras.Add(listaLetras[i]);
                 }
@@ -144,8 +144,16 @@ namespace ActividadJuego
                     GridTabla.Children.Add(borde);
                     Grid.SetRow(borde, fila);
                     Grid.SetColumn(borde, z);
+
+                    tb.MouseLeftButtonDown += Borde_MouseLeftButtonDown;
                 }
             }
+        }
+
+        private void Borde_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tb = (TextBlock)sender;
+            tb.Text = tb.Tag.ToString();
         }
     }
 }
