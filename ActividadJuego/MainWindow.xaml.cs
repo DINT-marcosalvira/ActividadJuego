@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 
 namespace ActividadJuego
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private char primerCaracter;
+        private char segundoCaracter;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -52,8 +52,13 @@ namespace ActividadJuego
                 Random r = new Random();
                 for (int i = 0; i < 6; i++)
                 {
-                    int letra = r.Next(65,91);
-                    char l = (char)letra;
+                    char l;
+                    int letra;
+                    do
+                    {
+                        letra = r.Next(65, 91);
+                        l = (char)letra;
+                    } while (listaLetras.Contains(l));
                     listaLetras.Add(l);
                 }
                 //Añade la pareja de cada letra
@@ -67,8 +72,13 @@ namespace ActividadJuego
                 Random r = new Random();
                 for (int i = 0; i < 8; i++)
                 {
-                    int letra = r.Next(65, 91);
-                    char l = (char)letra;
+                    char l;
+                    int letra;
+                    do
+                    {
+                        letra = r.Next(65, 91);
+                        l = (char)letra;
+                    } while (listaLetras.Contains(l));
                     listaLetras.Add(l);
                 }
 
@@ -82,8 +92,13 @@ namespace ActividadJuego
                 Random r = new Random();
                 for (int i = 0; i < 10; i++)
                 {
-                    int letra = r.Next(65, 91);
-                    char l = (char)letra;
+                    char l;
+                    int letra;
+                    do
+                    {
+                        letra = r.Next(65, 91);
+                        l = (char)letra;
+                    } while (listaLetras.Contains(l));
                     listaLetras.Add(l);
                 }
 
@@ -123,7 +138,7 @@ namespace ActividadJuego
             }
             //Con la lista desordenada y un contador, añadimos al tag toda la lista.
             List<char> lista = GeneraAleatorio(numeroFilas);
-
+            char cPareja;
             for (int fila = 0, contadorLista = 0; fila < numeroFilas; fila++)
             {
                 for (int z = 0; z < 4; contadorLista++ ,z++)
@@ -145,14 +160,19 @@ namespace ActividadJuego
                     Grid.SetRow(borde, fila);
                     Grid.SetColumn(borde, z);
 
-                    tb.MouseLeftButtonDown += Borde_MouseLeftButtonDown;
+                    borde.MouseLeftButtonDown += Borde_MouseLeftButtonDown1;
+                    //cPareja = (char)tb.Tag;
                 }
             }
         }
 
-        private void Borde_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Borde_MouseLeftButtonDown1(object sender, MouseButtonEventArgs e)
         {
-            TextBlock tb = (TextBlock)sender;
+            Border b = (Border)sender;
+
+            Viewbox vb = (Viewbox)b.Child;
+
+            TextBlock tb = (TextBlock)vb.Child;
             tb.Text = tb.Tag.ToString();
         }
     }
