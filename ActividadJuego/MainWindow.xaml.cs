@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading.Tasks;
 
 namespace ActividadJuego
 {
@@ -23,6 +22,7 @@ namespace ActividadJuego
         private string primerCaracter = null;
         private string segundoCaracter = null;
         private TextBlock textBlockExterno = null;
+        List<char> listaExterna = null;
 
         public MainWindow()
         {
@@ -43,6 +43,51 @@ namespace ActividadJuego
             {
                 InicioNivel(5);
             }
+        }
+
+        private void ButtonMostrar_Click(object sender, RoutedEventArgs e)
+        {
+            int numeroFilas = 0;
+            if (RadioButtonBaja.IsChecked == true)
+            {
+                numeroFilas = 3;
+            }
+            else if (RadioButtonMedia.IsChecked == true)
+            {
+                numeroFilas = 4;
+            }
+            else if (RadioButtonAlta.IsChecked == true)
+            {
+                numeroFilas = 5;
+            }
+
+            for (int fila = 0, contadorLista = 0; fila < numeroFilas; fila++)
+            {
+                for (int z = 0; z < 4; contadorLista++, z++)
+                {
+                    Border borde = new Border();
+                    Viewbox vb = new Viewbox();
+                    TextBlock tb = new TextBlock();
+                    vb.Child = tb;
+                    borde.Child = vb;
+                    borde.BorderBrush = Brushes.Black;
+                    borde.BorderThickness = new Thickness(3);
+                    borde.Margin = new Thickness(3);
+                    borde.CornerRadius = new CornerRadius(10);
+                    tb.FontFamily = new FontFamily("Webdings");
+                    tb.Tag = listaExterna[contadorLista];
+                    tb.Text = tb.Tag.ToString();
+                    borde.Background = Brushes.Beige;
+                    GridTabla.Children.Add(borde);
+                    Grid.SetRow(borde, fila);
+                    Grid.SetColumn(borde, z);
+
+                    borde.MouseLeftButtonDown += Borde_MouseLeftButtonDown1;
+                    borde.MouseLeftButtonUp += Borde_MouseLeftButtonUp1;
+                }
+            }
+            BarraProgreso.Value = 600;
+            MessageBox.Show("¡Partida finalizada!");
         }
 
         public List<char> GeneraAleatorio(int numeroFilas)
@@ -133,14 +178,14 @@ namespace ActividadJuego
         public void InicioNivel(int numeroFilas)
         {
             GridTabla.RowDefinitions.Clear();
-
+            BarraProgreso.Value = 0;
             for (int i = 0; i < numeroFilas; i++)
             {
                 GridTabla.RowDefinitions.Add(new RowDefinition());
             }
             //Con la lista desordenada y un contador, añadimos al tag toda la lista.
             List<char> lista = GeneraAleatorio(numeroFilas);
-            char cPareja;
+            listaExterna = lista;
             for (int fila = 0, contadorLista = 0; fila < numeroFilas; fila++)
             {
                 for (int z = 0; z < 4; contadorLista++ ,z++)
@@ -181,7 +226,8 @@ namespace ActividadJuego
             else if (segundoCaracter == null)
 	        {
                 segundoCaracter= tb.Tag.ToString();
-	        }
+                System.Threading.Thread.Sleep(500);
+            }
 
             if(textBlockExterno == null)
             {
@@ -200,6 +246,7 @@ namespace ActividadJuego
 	            }
                 else
                 {
+
                    primerCaracter = null;
                    segundoCaracter = null;
                    textBlockExterno = null;
@@ -213,7 +260,6 @@ namespace ActividadJuego
             Viewbox vb = (Viewbox)b.Child;
             TextBlock tb = (TextBlock)vb.Child;
             tb.Text = tb.Tag.ToString();
-            
         }
     }
 }
