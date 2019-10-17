@@ -23,6 +23,7 @@ namespace ActividadJuego
         private string segundoCaracter = null;
         private TextBlock textBlockExterno = null;
         List<char> listaExterna = null;
+        
 
         public MainWindow()
         {
@@ -218,7 +219,6 @@ namespace ActividadJuego
             Border b = (Border)sender; 
             Viewbox vb = (Viewbox)b.Child;
             TextBlock tb = (TextBlock)vb.Child;
-
             if (primerCaracter == null)
 	        {
                 primerCaracter = tb.Tag.ToString();
@@ -246,11 +246,61 @@ namespace ActividadJuego
 	            }
                 else
                 {
-
+                   ControladorBarraProgreso();
                    primerCaracter = null;
                    segundoCaracter = null;
                    textBlockExterno = null;
                 }
+            }
+        }
+
+        public void ControladorBarraProgreso()
+        {
+            double progresoBaja = 0;
+            double progresoMedia = 0;
+            double progresoAlta = 0;
+
+            if (RadioButtonBaja.IsChecked == true)
+            {
+                progresoBaja = BarraProgreso.Maximum / 6;
+                if (BarraProgreso.Value == 600)
+                {
+                    MessageBox.Show("¡Partida finalizada!");
+                }
+                else
+                {
+                    BarraProgreso.Value += progresoBaja;
+                }
+                
+                
+            }
+            else if (RadioButtonMedia.IsChecked == true)
+            {
+                progresoBaja = BarraProgreso.Maximum / 8;
+                if (BarraProgreso.Value == 600)
+                {
+                    MessageBox.Show("¡Partida finalizada!");
+                }
+                else
+                {
+                    BarraProgreso.Value += progresoMedia;
+                }
+                
+                
+            }
+            else if (RadioButtonAlta.IsChecked == true)
+            {
+                progresoBaja = BarraProgreso.Maximum / 10;
+                if (BarraProgreso.Value == 600)
+                {
+                    MessageBox.Show("¡Partida finalizada!");
+                }
+                else
+                {
+                    BarraProgreso.Value += progresoAlta;
+                }
+                
+                
             }
         }
 
