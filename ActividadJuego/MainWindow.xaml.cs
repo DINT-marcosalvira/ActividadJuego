@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,19 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
 
 namespace ActividadJuego
 {
     public partial class MainWindow : Window
     {
-        private char primerCaracter;
-        private char segundoCaracter;
+        private string primerCaracter = null;
+        private string segundoCaracter = null;
+        private TextBlock textBlockExterno = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -161,19 +163,57 @@ namespace ActividadJuego
                     Grid.SetColumn(borde, z);
 
                     borde.MouseLeftButtonDown += Borde_MouseLeftButtonDown1;
-                    //cPareja = (char)tb.Tag;
+                    borde.MouseLeftButtonUp += Borde_MouseLeftButtonUp1;
+                }
+            }
+        }
+
+        private void Borde_MouseLeftButtonUp1(object sender, MouseButtonEventArgs e)
+        {
+            Border b = (Border)sender; 
+            Viewbox vb = (Viewbox)b.Child;
+            TextBlock tb = (TextBlock)vb.Child;
+
+            if (primerCaracter == null)
+	        {
+                primerCaracter = tb.Tag.ToString();
+	        }
+            else if (segundoCaracter == null)
+	        {
+                segundoCaracter= tb.Tag.ToString();
+	        }
+
+            if(textBlockExterno == null)
+            {
+                textBlockExterno = tb; 
+            }
+
+            if(primerCaracter != null && segundoCaracter != null)
+            {
+                if (segundoCaracter != primerCaracter)
+	            {
+                   tb.Text = "s";
+                   textBlockExterno.Text = "s";
+                   primerCaracter = null;
+                   segundoCaracter = null;
+                   textBlockExterno = null;
+	            }
+                else
+                {
+                   primerCaracter = null;
+                   segundoCaracter = null;
+                   textBlockExterno = null;
                 }
             }
         }
 
         private void Borde_MouseLeftButtonDown1(object sender, MouseButtonEventArgs e)
         {
-            Border b = (Border)sender;
-
+            Border b = (Border)sender; 
             Viewbox vb = (Viewbox)b.Child;
-
             TextBlock tb = (TextBlock)vb.Child;
             tb.Text = tb.Tag.ToString();
+            
         }
     }
 }

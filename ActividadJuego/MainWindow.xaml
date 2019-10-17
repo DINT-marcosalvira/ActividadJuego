@@ -30,7 +30,7 @@
                 <Grid Grid.Row="0" Grid.Column="0">
                     <ProgressBar Margin="5" Width="Auto" Height="30" Minimum="100" Maximum="600" Value="300" />
                 </Grid>
-                <Button Margin="5" Background="WhiteSmoke" Grid.Row="0" Height="30" Grid.Column="1">Mostrar</Button>
+                <Button x:Name="BotonMostrar" Margin="5" Background="WhiteSmoke" Grid.Row="0" Height="30"  Grid.Column="1">Mostrar</Button>
             </Grid>
         </Border>
         <Grid x:Name="GridTabla" Width="610">
