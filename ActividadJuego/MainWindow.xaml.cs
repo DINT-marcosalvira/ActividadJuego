@@ -6,6 +6,7 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Drawing;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -22,8 +23,7 @@ namespace ActividadJuego
         private string primerCaracter = null;
         private string segundoCaracter = null;
         private TextBlock textBlockExterno = null;
-        List<char> listaExterna = null;
-        
+        private List<char> listaExterna = null;
 
         public MainWindow()
         {
@@ -71,20 +71,15 @@ namespace ActividadJuego
                     TextBlock tb = new TextBlock();
                     vb.Child = tb;
                     borde.Child = vb;
-                    borde.BorderBrush = Brushes.Black;
-                    borde.BorderThickness = new Thickness(3);
+                    borde.Background = Brushes.NavajoWhite; 
                     borde.Margin = new Thickness(3);
                     borde.CornerRadius = new CornerRadius(10);
                     tb.FontFamily = new FontFamily("Webdings");
                     tb.Tag = listaExterna[contadorLista];
                     tb.Text = tb.Tag.ToString();
-                    borde.Background = Brushes.Beige;
                     GridTabla.Children.Add(borde);
                     Grid.SetRow(borde, fila);
                     Grid.SetColumn(borde, z);
-
-                    borde.MouseLeftButtonDown += Borde_MouseLeftButtonDown1;
-                    borde.MouseLeftButtonUp += Borde_MouseLeftButtonUp1;
                 }
             }
             BarraProgreso.Value = 600;
@@ -184,6 +179,8 @@ namespace ActividadJuego
             {
                 GridTabla.RowDefinitions.Add(new RowDefinition());
             }
+            
+
             //Con la lista desordenada y un contador, añadimos al tag toda la lista.
             List<char> lista = GeneraAleatorio(numeroFilas);
             listaExterna = lista;
@@ -196,14 +193,13 @@ namespace ActividadJuego
                     TextBlock tb = new TextBlock();
                     vb.Child = tb;
                     borde.Child = vb;
-                    borde.BorderBrush = Brushes.Black;
-                    borde.BorderThickness = new Thickness(3);
                     borde.Margin = new Thickness(3);
                     borde.CornerRadius = new CornerRadius(10);
                     tb.FontFamily = new FontFamily("Webdings");
                     tb.Text = "s";
                     tb.Tag = lista[contadorLista];
-                    borde.Background = Brushes.Beige;
+
+                    borde.Background = Brushes.NavajoWhite;
                     GridTabla.Children.Add(borde);
                     Grid.SetRow(borde, fila);
                     Grid.SetColumn(borde, z);
@@ -226,7 +222,6 @@ namespace ActividadJuego
             else if (segundoCaracter == null)
 	        {
                 segundoCaracter= tb.Tag.ToString();
-                System.Threading.Thread.Sleep(500);
             }
 
             if(textBlockExterno == null)
@@ -238,6 +233,7 @@ namespace ActividadJuego
             {
                 if (segundoCaracter != primerCaracter)
 	            {
+                   System.Threading.Thread.Sleep(500);
                    tb.Text = "s";
                    textBlockExterno.Text = "s";
                    primerCaracter = null;
@@ -252,6 +248,7 @@ namespace ActividadJuego
                    textBlockExterno = null;
                 }
             }
+            
         }
 
         public void ControladorBarraProgreso()
@@ -263,44 +260,22 @@ namespace ActividadJuego
             if (RadioButtonBaja.IsChecked == true)
             {
                 progresoBaja = BarraProgreso.Maximum / 6;
-                if (BarraProgreso.Value == 600)
-                {
-                    MessageBox.Show("¡Partida finalizada!");
-                }
-                else
-                {
-                    BarraProgreso.Value += progresoBaja;
-                }
-                
-                
+                BarraProgreso.Value += progresoBaja;
             }
             else if (RadioButtonMedia.IsChecked == true)
             {
-                progresoBaja = BarraProgreso.Maximum / 8;
-                if (BarraProgreso.Value == 600)
-                {
-                    MessageBox.Show("¡Partida finalizada!");
-                }
-                else
-                {
-                    BarraProgreso.Value += progresoMedia;
-                }
-                
-                
+                progresoMedia = BarraProgreso.Maximum / 8;
+                BarraProgreso.Value += progresoMedia;
             }
             else if (RadioButtonAlta.IsChecked == true)
             {
-                progresoBaja = BarraProgreso.Maximum / 10;
-                if (BarraProgreso.Value == 600)
-                {
-                    MessageBox.Show("¡Partida finalizada!");
-                }
-                else
-                {
-                    BarraProgreso.Value += progresoAlta;
-                }
-                
-                
+                progresoAlta = BarraProgreso.Maximum / 10;
+                BarraProgreso.Value += progresoAlta;
+            }
+
+            if (BarraProgreso.Value == 600)
+            {
+                MessageBox.Show("¡Partida finalizada!");
             }
         }
 
@@ -309,7 +284,15 @@ namespace ActividadJuego
             Border b = (Border)sender; 
             Viewbox vb = (Viewbox)b.Child;
             TextBlock tb = (TextBlock)vb.Child;
-            tb.Text = tb.Tag.ToString();
+            if (tb.Text.Equals("s"))
+            {
+                tb.Text = tb.Tag.ToString();
+            }
+            else
+            {
+                b.MouseLeftButtonUp -= Borde_MouseLeftButtonUp1;
+            }
+            
         }
     }
 }

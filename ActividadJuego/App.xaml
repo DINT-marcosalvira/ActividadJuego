@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:ActividadJuego"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="local:MainWindow">
+            <Setter Property="Background" Value="LightBlue"></Setter>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderThickness" Value="3"></Setter>
+            <Setter Property="BorderBrush" Value="Tan"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActividadJuego"
         mc:Ignorable="d"
-        
-        Title="MainWindow" Height="677.812" Width="642.5" MinHeight="535" MinWidth="500" Icon="128 (4).ico" Background="LightBlue">
+        Title="MainWindow" Height="677.812" Width="642.5" MinHeight="535" MinWidth="500" Icon="128 (4).ico" >
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Top" Background="White" Height="60" Margin="5,5,5,5" BorderBrush="Black" BorderThickness="5" CornerRadius="6">
+        <Border DockPanel.Dock="Top" Background="White" Height="60" Margin="5,5,5,5" CornerRadius="6">
             <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >
                 <TextBlock Margin="5" FontFamily="Comic Sans MS" FontWeight="Bold">Dificultad: </TextBlock>
                 <RadioButton x:Name="RadioButtonBaja" FontFamily="Comic Sans MS" FontWeight="Bold" Margin="5">Baja</RadioButton>
@@ -18,7 +17,7 @@
             </StackPanel>
         </Border>
 
-        <Border DockPanel.Dock="Bottom" Background="White" Height="60" Margin="5,5,5,5" BorderBrush="Black" BorderThickness="5" CornerRadius="6">
+        <Border DockPanel.Dock="Bottom" Background="White" Height="60" Margin="5,5,5,5" CornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -28,7 +27,7 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0">
-                    <ProgressBar x:Name="BarraProgreso" Margin="5" Width="Auto" Height="30" Minimum="100" Maximum="600" Value="0" />
+                    <ProgressBar x:Name="BarraProgreso" Margin="5" Width="Auto" Height="30" Minimum="0" Maximum="600" Value="0" />
                 </Grid>
                 <Button x:Name="BotonMostrar" Margin="5" Click="ButtonMostrar_Click" Background="WhiteSmoke" Grid.Row="0" Height="30"  Grid.Column="1">Mostrar</Button>
             </Grid>
